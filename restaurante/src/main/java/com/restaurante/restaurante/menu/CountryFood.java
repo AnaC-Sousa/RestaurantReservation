@@ -1,6 +1,6 @@
-package com.restaurante.restaurante.domain;
+package com.restaurante.restaurante.menu;
 
-public enum FoodType {
+public enum CountryFood {
     THAI,
     FAST_FOOD,
     ITALIAN,
@@ -11,7 +11,5 @@ public enum FoodType {
     JAPANESE,
     MEDITERRANEAN,
     VEGAN,
-    BARBECUE_GRILL,
-    BAKERY
-
+    BARBECUE_GRILL
 }

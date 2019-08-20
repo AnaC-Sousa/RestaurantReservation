@@ -11,7 +11,8 @@ public class Client {
     private Address address;
 
 
-    public Client(String firstName, String lastName, long phoneNumber, Address address){
+    public Client(int id, String firstName, String lastName, long phoneNumber, Address address){
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;

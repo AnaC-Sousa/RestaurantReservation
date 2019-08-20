@@ -2,11 +2,11 @@ package com.restaurante.restaurante.address;
 
 public class Address {
 
-    private static String nameStreet;
-    private static String buildingName;
-    private static String buildingNumber;
-    private static String floor;
-    private static String direction;
+    private  String nameStreet;
+    private  String buildingName;
+    private  String buildingNumber;
+    private  String floor;
+    private  String direction;
 
     private Address(String nameStreet, String buildingNumber){
         this.nameStreet = nameStreet;
@@ -25,11 +25,14 @@ public class Address {
         return nameStreet + buildingNumber + floor + direction;
     }
 
-    public static Address createClientAddress(){
-        return new Address(nameStreet, buildingNumber, floor, direction );
+    public String getRestaurantAddress(){
+        return nameStreet + buildingNumber;
     }
 
-    public static Address getRestaurantAddress(){
+    public static Address createClientAddress(String nameStreet, String buildingNumber, String floor, String direction){
+        return new Address(nameStreet, buildingNumber, floor, direction );
+    }
+    public static Address createRestaurantAddress(String nameStreet, String buildingNumber){
         return new Address(nameStreet, buildingNumber);
     }
 }
