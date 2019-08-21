@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 public class Menu {
 
     private CountryFood countryFood;
-    private List<Item> items = new ArrayList<>();
+    private List<Ingredient> items = new ArrayList<>();
 
-    public List<Item> mainMenu() {
+    public List<Ingredient> mainMenu() {
         return switch (countryFood) {
             case THAI, JAPANESE, CHINESE -> filterByFoodType(List.of(FoodType.FISH));
             case AMERICAN, ARABIAN, BARBECUE_GRILL -> filterByFoodType(List.of(FoodType.MEAT));
@@ -21,21 +21,21 @@ public class Menu {
         };
     }
 
-    private List<Item> filterByFoodType(List<FoodType> foodTypes){
+    private List<Ingredient> filterByFoodType(List<FoodType> foodTypes){
         return items.stream().filter(item -> foodTypes.contains(item.getFoodType())).collect(Collectors.toList());
     }
 
-    private void addItem(Item item){
+    private void addItem(Ingredient item){
         items.add(item);
     }
 
     public int getTotalPrice(){
-        return items.stream().mapToInt(Item::getUnitPrice).sum();
+        return items.stream().mapToInt(Ingredient::getUnitPrice).sum();
 
     }
 
     public String displayMenu(){
-        return items.stream().map(Item::getDescription).reduce("", (description1, description2) -> description1+description2);
+        return items.stream().map(ingredient -> ingredient.getName()).reduce("", (description1, description2) -> description1+description2);
     }
 
 }
