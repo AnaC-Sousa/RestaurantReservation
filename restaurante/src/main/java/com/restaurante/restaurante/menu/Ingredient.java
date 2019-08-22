@@ -8,11 +8,16 @@ import java.util.List;
 
 public class Ingredient {
 
+    public enum SoftDrinks {
+        WATER,
+        WINE,
+        SODA
+    }
     private @Id @GeneratedValue Integer id;
 
     private String name;
     private FoodType foodType;
-    private FoodType.SoftDrinks drinks;
+    private SoftDrinks drinks;
     private int unitPrice;
     private static List<Ingredient> ingredientList = new ArrayList<>();
 
@@ -23,7 +28,7 @@ public class Ingredient {
         this.unitPrice = unitPrice;
     }
 
-    private Ingredient(String name,FoodType.SoftDrinks softDrinks, int unitPrice) {
+    private Ingredient(String name,SoftDrinks softDrinks, int unitPrice) {
         this.name = name;
         this.drinks = softDrinks;
         this.unitPrice = unitPrice;
@@ -43,18 +48,13 @@ public class Ingredient {
         return this.foodType;
     }
 
-    public FoodType.SoftDrinks getSoftDrinks(){
+    public SoftDrinks getSoftDrinks(){
         return this.drinks;
     }
 
     public int getUnitPrice() {
         return unitPrice;
     }
-
-    public String getName(){
-        return this.name;
-    }
-
 
     public void setName(String name){
         this.name = name;
@@ -64,7 +64,7 @@ public class Ingredient {
         this.foodType = foodType;
     }
 
-    public void setDrinks(FoodType.SoftDrinks drinks){
+    public void setDrinks(SoftDrinks drinks){
         this.drinks = drinks;
     }
 }

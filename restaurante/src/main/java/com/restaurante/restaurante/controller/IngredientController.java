@@ -6,6 +6,7 @@ import com.restaurante.restaurante.repository.IngredientRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 public class IngredientController {
@@ -33,13 +34,29 @@ public class IngredientController {
     }
 
     @PutMapping("/ingredients/{foodType}/{name}")
-    public void replaceIngredientAndFoodType(@RequestParam FoodType foodType, @RequestParam String name){
+    public Stream<Ingredient> replaceIngredientAndFoodType(@RequestParam FoodType foodType, @RequestParam String name){
+        return ingredientRepository.findByName(name).stream().
+                map(ingredient ->{
+            ingredient.setName(name);
+            ingredient.setFoodType(foodType);
+            return ingredientRepository.save(ingredient);
+        });
+
     }
 
     @PutMapping("/ingredients/{drinkType}/{name}")
-    public void replaceIngredientAndDrinkType(@RequestBody Ingredient ingredient, @RequestParam FoodType.SoftDrinks softDrinks, @RequestParam String name){
+    public Stream<Ingredient> replaceIngredientAndDrinkType(@RequestParam Ingredient.SoftDrinks softDrinks, @RequestParam String name){
+        return ingredientRepository.findByName(name).stream().
+                map(ingredient ->{
+                    ingredient.setName(name);
+                    ingredient.setDrinks(softDrinks);
+                    return ingredientRepository.save(ingredient);
+                });
+    }
 
-
+    @DeleteMapping("/ingredients/{id}")
+    public void deleteIngredient(@PathVariable int id){
+        ingredientRepository.deleteById(id);
     }
 
 }

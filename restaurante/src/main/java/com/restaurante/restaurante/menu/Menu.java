@@ -1,13 +1,20 @@
 package com.restaurante.restaurante.menu;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Menu {
 
+
+
     private CountryFood countryFood;
-    private List<Ingredient> items = new ArrayList<>();
+    private List<Dish> dishes;
+    private Ingredient.SoftDrinks drinks;
+
+    public Menu(List<Dish> dishes, Ingredient.SoftDrinks drinks){
+        this.dishes = dishes;
+        this.drinks = drinks;
+    }
 
     public List<Ingredient> mainMenu() {
         return switch (countryFood) {
@@ -21,21 +28,27 @@ public class Menu {
         };
     }
 
-    private List<Ingredient> filterByFoodType(List<FoodType> foodTypes){
-        return items.stream().filter(item -> foodTypes.contains(item.getFoodType())).collect(Collectors.toList());
+    private List<Dish> filterByFoodType(List<FoodType> foodTypes){
+        return dishes.stream().filter(dishes -> foodTypes.contains(dishes.getFoodType())).collect(Collectors.toList());
     }
 
-    private void addItem(Ingredient item){
-        items.add(item);
+    private void addDish(Dish dish){
+        dishes.add(dish);
+    }
+
+    private void addDrinkToMenu(Dish dish, Ingredient.SoftDrinks drinks){
+        if(dishes.contains(dish)){
+            dish.addIngredientsToDish(drinks);
+        }
     }
 
     public int getTotalPrice(){
-        return items.stream().mapToInt(Ingredient::getUnitPrice).sum();
+        return dishes.stream().mapToInt(Dish::getDishPrice).sum();
 
     }
 
     public String displayMenu(){
-        return items.stream().map(ingredient -> ingredient.getName()).reduce("", (description1, description2) -> description1+description2);
+        return dishes.stream().map(dishes -> dishes.getDescription()).reduce("", (description1, description2) -> description1+description2);
     }
 
 }
