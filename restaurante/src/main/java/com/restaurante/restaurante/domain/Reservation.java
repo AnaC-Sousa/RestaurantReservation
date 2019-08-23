@@ -21,10 +21,11 @@ public class Reservation {
         this.status = status;
     }
 
-    public int getNumberOfPeople(){
+    int getNumberOfPeople(){
         return this.numberOfPeople;
     }
-    public ReservationStatus getStatus(){
+
+    ReservationStatus getReservationStatus(){
         return this.status;
     }
 }

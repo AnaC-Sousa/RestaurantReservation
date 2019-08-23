@@ -1,5 +1,7 @@
 package com.restaurante.restaurante.menu;
 
+import com.restaurante.restaurante.exception.DishNotFoundException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,14 +11,14 @@ public class Menu {
 
     private CountryFood countryFood;
     private List<Dish> dishes;
-    private Ingredient.SoftDrinks drinks;
+    private Ingredient drinks;
 
-    public Menu(List<Dish> dishes, Ingredient.SoftDrinks drinks){
+    public Menu(List<Dish> dishes, Ingredient drinks){
         this.dishes = dishes;
         this.drinks = drinks;
     }
 
-    public List<Ingredient> mainMenu() {
+    public List<Dish> mainMenu() {
         return switch (countryFood) {
             case THAI, JAPANESE, CHINESE -> filterByFoodType(List.of(FoodType.FISH));
             case AMERICAN, ARABIAN, BARBECUE_GRILL -> filterByFoodType(List.of(FoodType.MEAT));
@@ -24,6 +26,7 @@ public class Menu {
             case INDIAN -> filterByFoodType(List.of(FoodType.MEAT, FoodType.FISH, FoodType.NON_FISH_NON_MEAT));
             case ITALIAN, MEDITERRANEAN -> filterByFoodType(List.of(FoodType.MEAT, FoodType.FISH, FoodType.VEGAN, FoodType.NON_FISH_NON_MEAT));
             case VEGAN -> filterByFoodType(List.of(FoodType.VEGAN, FoodType.NON_FISH_NON_MEAT));
+            case MEXICAN -> filterByFoodType(List.of(FoodType.MEAT, FoodType.NON_FISH_NON_MEAT));
             default -> throw new EnumConstantNotPresentException(CountryFood.class, "Value " + countryFood + " not supported");
         };
     }
@@ -36,9 +39,12 @@ public class Menu {
         dishes.add(dish);
     }
 
-    private void addDrinkToMenu(Dish dish, Ingredient.SoftDrinks drinks){
+    private void addDrinkToMenu(Dish dish, Ingredient drinks) throws DishNotFoundException {
         if(dishes.contains(dish)){
             dish.addIngredientsToDish(drinks);
+        }else {
+            //crio o prato ou mando excecao
+            throw new DishNotFoundException("Cannot add the following drink: " + drinks + ". Dish not found.");
         }
     }
 

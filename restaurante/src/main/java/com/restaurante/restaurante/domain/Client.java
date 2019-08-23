@@ -19,11 +19,33 @@ public class Client {
         this.address = address;
     }
 
-    public String getClientName(String firstName, String lastName){
-        return firstName + lastName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public Address getClientAddress(Address address){
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Address getClientAddress(){
         return this.address;
+    }
+    public Long getPhoneNumber(){ return this.phoneNumber; }
+
+    public void setName(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void setPhoneNumber(Long phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setAddress(Address address){
+        this.address = address;
     }
 }
