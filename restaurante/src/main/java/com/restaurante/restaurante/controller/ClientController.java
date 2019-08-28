@@ -1,12 +1,15 @@
 package com.restaurante.restaurante.controller;
 
-import com.restaurante.restaurante.domain.Client;
+import com.restaurante.restaurante.model.ClientDTO;
 import com.restaurante.restaurante.service.ClientService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequestMapping("/clients")
 @RestController
@@ -15,27 +18,31 @@ public class ClientController {
     @Autowired
     private final ClientService clientService;
 
+    private final ModelMapper modelMapper;
+
     public ClientController(ClientService clientService){
         this.clientService = clientService;
+        this.modelMapper = new ModelMapper();
     }
 
     @GetMapping
-    public List<Client> getAllClients(){
-        return clientService.getClients();
+    public List<ClientDTO> getAllClients(){
+        return clientService.getClients().stream().map(client -> modelMapper.map(client, ClientDTO.class))
+                .collect(Collectors.toList());
     }
 
     @GetMapping(path = "{id}")
-    public Optional<Client> getClientbyId(@PathVariable int id){
-        return clientService.getClientById(id);
+    public Optional<ClientDTO> getClientById(@PathVariable int id){
+        return modelMapper.map(clientService.getClientById(id), Optional<ClientDTO>.class);
     }
 
     @PostMapping
-    public void addClient(@RequestBody Client client){
+    public void addClient(@RequestBody ClientDTO client){
         clientService.newClient(client);
     }
 
     @PutMapping(path = "{id}")
-    public Client replaceClient(@RequestBody Client newClient, @PathVariable int id){
+    public ClientDTO replaceClient(@RequestBody ClientDTO newClient, @PathVariable int id){
         return clientService.replaceClient(newClient, id);
     }
 
