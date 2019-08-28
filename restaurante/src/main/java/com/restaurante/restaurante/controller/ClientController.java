@@ -1,51 +1,50 @@
 package com.restaurante.restaurante.controller;
 
 import com.restaurante.restaurante.domain.Client;
-import com.restaurante.restaurante.repository.ClientRepository;
+import com.restaurante.restaurante.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@RequestMapping("/clients")
+@RestController
 public class ClientController {
-    private final ClientRepository clientRepository;
 
+    @Autowired
+    private final ClientService clientService;
 
-    public ClientController(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
+    public ClientController(ClientService clientService){
+        this.clientService = clientService;
     }
 
-    @RequestMapping("/clients")
-    public List<Client> getClients(){
-        return clientRepository.findAll();
+    @GetMapping
+    public List<Client> getAllClients(){
+        return clientService.getClients();
     }
 
-    @GetMapping("clients/{id}")
-    public Optional<Client> getClientById(@PathVariable int id){
-        return clientRepository.findById(id);
+    @GetMapping(path = "{id}")
+    public Optional<Client> getClientbyId(@PathVariable int id){
+        return clientService.getClientById(id);
     }
 
-    @PostMapping("clients")
-    public void newClient(@RequestBody Client newClient){
-        clientRepository.save(newClient);
+    @PostMapping
+    public void addClient(@RequestBody Client client){
+        clientService.newClient(client);
     }
 
-    @PutMapping("clients/{id}")
+    @PutMapping(path = "{id}")
     public Client replaceClient(@RequestBody Client newClient, @PathVariable int id){
-        return clientRepository.findById(id)
-                .map(client -> {
-                    client.setName(newClient.getFirstName(), newClient.getLastName());
-                    client.setAddress(newClient.getClientAddress());
-                    client.setPhoneNumber(newClient.getPhoneNumber());
-                    return clientRepository.save(client);
+        return clientService.replaceClient(newClient, id);
+    }
 
-                })
-                .orElseGet(() ->{ newClient.setId(id);
-                return clientRepository.save(newClient);
-                });
+
+    @DeleteMapping(path = "{id}")
+    public void deleteClient(@PathVariable int id ){
+        clientService.deleteClient(id);
     }
-    @DeleteMapping("clients/{id}")
-    public void deleteClient(@PathVariable int id){
-        clientRepository.deleteById(id);
-    }
+
+
+
 }
