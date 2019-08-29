@@ -1,7 +1,10 @@
 package com.restaurante.restaurante.service;
 
+import com.restaurante.restaurante.address.Address;
 import com.restaurante.restaurante.domain.Client;
+import com.restaurante.restaurante.model.ClientDTO;
 import com.restaurante.restaurante.repository.ClientRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,11 @@ public class ClientService {
     @Autowired
     private final ClientRepository clientRepository;
 
+    private final ModelMapper modelMapper;
+
     public ClientService(ClientRepository clientRepository){
         this.clientRepository = clientRepository;
+        this.modelMapper = new ModelMapper();
     }
 
     public List<Client> getClients(){
@@ -23,27 +29,27 @@ public class ClientService {
     }
 
 
-    public Optional<Client> getClientById(int id){
-        return clientRepository.findById(id);
+    public Client getClientById(int id){
+        return clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found" + id));
     }
 
 
-    public void newClient(Client newClient){
-        clientRepository.save(newClient);
+    public void newClient(ClientDTO newClient){
+        clientRepository.save(modelMapper.map(newClient, Client.class));
     }
 
 
-    public Client replaceClient(Client newClient, int id){
+    public ClientDTO replaceClient(ClientDTO newClient, int id){
         return clientRepository.findById(id)
                 .map(client -> {
                     client.setName(newClient.getFirstName(), newClient.getLastName());
-                    client.setAddress(newClient.getAddress());
+                    client.setAddress(modelMapper.map(newClient.getAddress(), Address.class));
                     client.setPhoneNumber(newClient.getPhoneNumber());
-                    return clientRepository.save(client);
+                    return modelMapper.map(clientRepository.save(client), ClientDTO.class);
 
                 })
                 .orElseGet(() ->{ newClient.setId(id);
-                    return clientRepository.save(newClient);
+                    return modelMapper.map(clientRepository.save(modelMapper.map(newClient, Client.class)), ClientDTO.class);
                 });
     }
 

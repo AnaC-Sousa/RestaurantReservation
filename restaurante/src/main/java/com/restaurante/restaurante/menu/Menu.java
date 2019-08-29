@@ -19,16 +19,29 @@ public class Menu {
     }
 
     public List<Dish> mainMenu() {
-        return switch (countryFood) {
-            case THAI, JAPANESE, CHINESE -> filterByFoodType(List.of(FoodType.FISH));
-            case AMERICAN, ARABIAN, BARBECUE_GRILL -> filterByFoodType(List.of(FoodType.MEAT));
-            case FAST_FOOD -> filterByFoodType(List.of(FoodType.FISH, FoodType.MEAT, FoodType.VEGAN));
-            case INDIAN -> filterByFoodType(List.of(FoodType.MEAT, FoodType.FISH, FoodType.NON_FISH_NON_MEAT));
-            case ITALIAN, MEDITERRANEAN -> filterByFoodType(List.of(FoodType.MEAT, FoodType.FISH, FoodType.VEGAN, FoodType.NON_FISH_NON_MEAT));
-            case VEGAN -> filterByFoodType(List.of(FoodType.VEGAN, FoodType.NON_FISH_NON_MEAT));
-            case MEXICAN -> filterByFoodType(List.of(FoodType.MEAT, FoodType.NON_FISH_NON_MEAT));
-            default -> throw new EnumConstantNotPresentException(CountryFood.class, "Value " + countryFood + " not supported");
-        };
+        switch (countryFood) {
+            case THAI:
+            case JAPANESE:
+            case CHINESE:
+                return filterByFoodType(List.of(FoodType.FISH));
+            case AMERICAN:
+            case ARABIAN:
+            case BARBECUE_GRILL:
+                return filterByFoodType(List.of(FoodType.MEAT));
+            case FAST_FOOD:
+                return filterByFoodType(List.of(FoodType.FISH, FoodType.MEAT, FoodType.VEGAN));
+            case INDIAN:
+                return filterByFoodType(List.of(FoodType.MEAT, FoodType.FISH, FoodType.NON_FISH_NON_MEAT));
+            case ITALIAN:
+            case MEDITERRANEAN:
+                return filterByFoodType(List.of(FoodType.MEAT, FoodType.FISH, FoodType.VEGAN, FoodType.NON_FISH_NON_MEAT));
+            case VEGAN:
+                return filterByFoodType(List.of(FoodType.VEGAN, FoodType.NON_FISH_NON_MEAT));
+            case MEXICAN:
+                return filterByFoodType(List.of(FoodType.MEAT, FoodType.NON_FISH_NON_MEAT));
+            default:
+                throw new EnumConstantNotPresentException(CountryFood.class, "Value " + countryFood + " not supported");
+        }
     }
 
     private List<Dish> filterByFoodType(List<FoodType> foodTypes){
