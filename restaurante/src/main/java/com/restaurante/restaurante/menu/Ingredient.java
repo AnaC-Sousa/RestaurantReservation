@@ -1,10 +1,10 @@
 package com.restaurante.restaurante.menu;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Ingredient {
 
     public enum SoftDrinks {
@@ -12,32 +12,40 @@ public class Ingredient {
         WINE,
         SODA
     }
-    private @Id @GeneratedValue Integer id;
+    private @Id @GeneratedValue Long id;
+    @Column(name = "NAME")
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private FoodType foodType;
+
+    @Enumerated(EnumType.STRING)
     private SoftDrinks drinks;
+    @Column(name = "UNIT_PRICE")
     private int unitPrice;
     private static List<Ingredient> ingredientList = new ArrayList<>();
 
-
-    private Ingredient(Integer id, String name, FoodType foodType, int unitPrice) {
-        this.id = id;
+    public Ingredient(){}
+    private Ingredient(String name, FoodType foodType, int unitPrice) {
         this.name = name;
         this.foodType = foodType;
         this.unitPrice = unitPrice;
     }
 
-    private Ingredient(Integer id, String name, SoftDrinks softDrinks, int unitPrice) {
-        this.id = id;
+    private Ingredient(String name, SoftDrinks softDrinks, int unitPrice) {
         this.name = name;
         this.drinks = softDrinks;
         this.unitPrice = unitPrice;
     }
 
-    private static Ingredient createIngredientAndAddToList(Integer id, String description, FoodType foodType, int unitPrice){
-        Ingredient newIngredient = new Ingredient(id, description, foodType,unitPrice);
+    private static void createIngredientAndAddToList(String description, FoodType foodType, int unitPrice){
+        Ingredient newIngredient = new Ingredient(description, foodType,unitPrice);
         addIngredientToList(newIngredient);
-        return newIngredient;
+    }
+
+    private static void createDrinkAndAddToList(String description, SoftDrinks softDrinks, int unitPrice){
+        Ingredient newIngredient = new Ingredient(description,softDrinks,unitPrice);
+        addIngredientToList(newIngredient);
     }
 
     private static void addIngredientToList(Ingredient newIngredient) {

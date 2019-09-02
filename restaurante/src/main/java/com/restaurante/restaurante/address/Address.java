@@ -1,13 +1,28 @@
 package com.restaurante.restaurante.address;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Address {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Column(name = "NAME_STREET")
     private  String nameStreet;
+    @Column(name = "BUILDING_NAME")
     private  String buildingName;
+    @Column(name = "BUILDING_NUMBER")
     private  String buildingNumber;
+    @Column(name = "FLOOR")
     private  String floor;
+    @Column(name = "DIRECTION")
     private  String direction;
 
+    public Address(){}
     private Address(String nameStreet, String buildingNumber){
         this.nameStreet = nameStreet;
         this.buildingNumber = buildingNumber;

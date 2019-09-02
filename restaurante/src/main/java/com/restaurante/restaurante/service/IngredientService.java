@@ -14,10 +14,9 @@ import java.util.stream.Stream;
 public class IngredientService {
 
     @Autowired
-    private final IngredientRepository ingredientRepository;
+    private IngredientRepository ingredientRepository;
 
-    public IngredientService(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
+    public IngredientService() {
     }
 
 

@@ -1,20 +1,23 @@
 package com.restaurante.restaurante.domain;
 
-import com.restaurante.restaurante.address.Address;
-import com.restaurante.restaurante.menu.CountryFood;
-import com.restaurante.restaurante.menu.FoodType;
-import com.restaurante.restaurante.menu.Menu;
-import com.restaurante.restaurante.reservation.ReservationStatus;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+@Entity
 public class Restaurant {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Column(name = "CURRENT_CAPACITY")
     private int currentCapacity;
+    @Column(name = "MAX_CAPACITY")
     private int maxCapacity;
+    @Column(name = "BILL")
     private int bill;
+    /*
     private Long phoneNumber;
     private String name;
     private CountryFood countryFood;
@@ -129,6 +132,6 @@ public class Restaurant {
                 table.setStatus(TableStatus.FREE);
             }
         }
-    }
+    }*/
 }
 

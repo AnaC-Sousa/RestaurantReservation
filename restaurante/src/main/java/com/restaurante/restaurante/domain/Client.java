@@ -2,16 +2,28 @@ package com.restaurante.restaurante.domain;
 
 import com.restaurante.restaurante.address.Address;
 
+import javax.persistence.*;
+
+@Entity
 public class Client {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column(name = "FIRST_NAME")
     private String firstName;
+    @Column(name = "LAST_NAME")
     private String lastName;
+    @Column(name = "PHONE_NUMBER")
     private long phoneNumber;
+
+    @OneToOne
     private Address address;
 
 
-    public Client(int id, String firstName, String lastName, long phoneNumber, Address address){
+    public Client(){}
+    public Client(Long id, String firstName, String lastName, long phoneNumber, Address address){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,11 +31,11 @@ public class Client {
         this.address = address;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

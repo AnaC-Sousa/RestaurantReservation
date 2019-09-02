@@ -15,12 +15,11 @@ import java.util.Optional;
 public class ClientService {
 
     @Autowired
-    private final ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     private final ModelMapper modelMapper;
 
-    public ClientService(ClientRepository clientRepository){
-        this.clientRepository = clientRepository;
+    public ClientService(){
         this.modelMapper = new ModelMapper();
     }
 

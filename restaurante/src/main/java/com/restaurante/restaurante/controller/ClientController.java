@@ -1,6 +1,5 @@
 package com.restaurante.restaurante.controller;
 
-import com.restaurante.restaurante.domain.Client;
 import com.restaurante.restaurante.model.ClientDTO;
 import com.restaurante.restaurante.service.ClientService;
 import org.modelmapper.ModelMapper;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequestMapping("/clients")
@@ -16,12 +14,11 @@ import java.util.stream.Collectors;
 public class ClientController {
 
     @Autowired
-    private final ClientService clientService;
+    private ClientService clientService;
 
     private final ModelMapper modelMapper;
 
-    public ClientController(ClientService clientService){
-        this.clientService = clientService;
+    public ClientController(){
         this.modelMapper = new ModelMapper();
     }
 

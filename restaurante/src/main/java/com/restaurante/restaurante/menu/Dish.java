@@ -1,24 +1,32 @@
 package com.restaurante.restaurante.menu;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Dish {
-    private long id;
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Column(name = "DESCRIPTION")
     private String description;
+    @Column(name = "PLATES")
     private List<Ingredient> plates;
+
+    @Enumerated(EnumType.STRING)
     private FoodType foodType;
 
 
 
-    private Dish(long id, String description, List<Ingredient> plates,FoodType foodType) {
-        this.id = id;
+    private Dish(String description, List<Ingredient> plates,FoodType foodType) {
         this.description = description;
         this.plates = plates;
         this.foodType = foodType;
     }
 
-    public Dish createDish(long id, String description, List<Ingredient> plate, FoodType foodType){
-        return new Dish(id, description, plate, foodType);
+    public Dish createDish(String description, List<Ingredient> plate, FoodType foodType){
+        return new Dish(description, plate, foodType);
     }
     public void addIngredientsToDish(Ingredient ingredient){
         plates.add(ingredient);

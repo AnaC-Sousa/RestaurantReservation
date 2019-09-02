@@ -2,18 +2,27 @@ package com.restaurante.restaurante.menu;
 
 import com.restaurante.restaurante.exception.DishNotFoundException;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Entity
 public class Menu {
 
 
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    @Enumerated(EnumType.STRING)
     private CountryFood countryFood;
+
+    @Column(name = "DISHES")
     private List<Dish> dishes;
     private Ingredient drinks;
 
-    public Menu(List<Dish> dishes, Ingredient drinks){
+    public Menu(Long id, List<Dish> dishes, Ingredient drinks){
+        this.id = id;
         this.dishes = dishes;
         this.drinks = drinks;
     }

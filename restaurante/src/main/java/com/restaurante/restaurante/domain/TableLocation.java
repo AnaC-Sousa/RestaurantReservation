@@ -1,6 +1,6 @@
 package com.restaurante.restaurante.domain;
 
-public enum Location {
+public enum TableLocation {
     WINDOW,
     CENTER,
     CORNER,

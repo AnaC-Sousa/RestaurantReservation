@@ -16,11 +16,10 @@ public class RestaurantService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    public RestaurantService(RestaurantRepository restaurantRepository) {
-        this.restaurantRepository = restaurantRepository;
+    public RestaurantService() {
     }
 
-
+/*
     public List<Restaurant> all(){
         return restaurantRepository.findAll();
     }
@@ -78,5 +77,5 @@ public class RestaurantService {
 
     public void deleteRestaurant(int id){
         restaurantRepository.deleteById(id);
-    }
+    }*/
 }
