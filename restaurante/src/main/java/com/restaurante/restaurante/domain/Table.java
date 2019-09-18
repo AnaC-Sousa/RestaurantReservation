@@ -1,13 +1,19 @@
 package com.restaurante.restaurante.domain;
 
+import com.restaurante.restaurante.domain.reservation.Reservation;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Table {
+
     @Id
     @GeneratedValue
     private Long id;
-    public final int numberOfSeats = 4;
+
+    public static final int numberOfSeats = 4;
+
     @Column(name = "FORMAT")
     private String format;
 
@@ -16,7 +22,9 @@ public class Table {
 
     @Enumerated(EnumType.STRING)
     private TableStatus status = TableStatus.FREE;
-    private Reservation reservation;
+
+    @ManyToMany
+    private List<Reservation> reservations;
 
 
     private Table(String format, TableLocation place) {
@@ -36,7 +44,7 @@ public class Table {
         this.status = status;
     }
 
-    public Reservation getReservation(){
-        return this.reservation;
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 }

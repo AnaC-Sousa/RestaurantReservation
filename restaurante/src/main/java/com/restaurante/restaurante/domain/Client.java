@@ -1,8 +1,10 @@
 package com.restaurante.restaurante.domain;
 
-import com.restaurante.restaurante.address.Address;
+import com.restaurante.restaurante.domain.address.Address;
+import com.restaurante.restaurante.domain.reservation.Reservation;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Client {
@@ -13,16 +15,24 @@ public class Client {
 
     @Column(name = "FIRST_NAME")
     private String firstName;
+
     @Column(name = "LAST_NAME")
     private String lastName;
+
     @Column(name = "PHONE_NUMBER")
     private long phoneNumber;
 
     @OneToOne
+    @JoinColumn(name = "ADDRESS_ID")
     private Address address;
+
+    @OneToMany(mappedBy = "client")
+    @ElementCollection(targetClass= Reservation.class)
+    private List<Reservation> reservations;
 
 
     public Client(){}
+
     public Client(Long id, String firstName, String lastName, long phoneNumber, Address address){
         this.id = id;
         this.firstName = firstName;
@@ -52,6 +62,14 @@ public class Client {
     }
 
     public Long getPhoneNumber(){ return this.phoneNumber; }
+
+    public String getName(){
+        return this.getFirstName() + this.getLastName();
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
 
     public void setName(String firstName, String lastName){
         this.firstName = firstName;

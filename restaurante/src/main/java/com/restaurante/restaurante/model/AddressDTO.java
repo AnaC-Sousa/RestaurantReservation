@@ -1,11 +1,16 @@
 package com.restaurante.restaurante.model;
 
 public class AddressDTO {
+    private Long id;
     private  String nameStreet;
     private  String buildingName;
     private  String buildingNumber;
     private  String floor;
     private  String direction;
+
+    public Long getId(){
+        return this.id;
+    }
 
     public String getNameStreet() {
         return nameStreet;

@@ -1,9 +1,10 @@
 package com.restaurante.restaurante.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.restaurante.restaurante.domain.address.Address;
+import com.restaurante.restaurante.domain.reservation.Reservation;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Restaurant {
@@ -11,26 +12,65 @@ public class Restaurant {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(name = "CURRENT_CAPACITY")
     private int currentCapacity;
+
     @Column(name = "MAX_CAPACITY")
     private int maxCapacity;
+
     @Column(name = "BILL")
     private int bill;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToOne
+    @JoinColumn(name = "ADDRESS_ID")
+    private Address address;
+
+    @OneToMany(mappedBy = "restaurant")
+    private List<Reservation> reservationList;
+
+    public Long getId(){
+        return this.id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCurrentCapacity() {
+        return currentCapacity;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public int getBill() {
+        return bill;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
     /*
     private Long phoneNumber;
-    private String name;
     private CountryFood countryFood;
     private Menu menu;
+    private Reservation reservation;
     private RestaurantRate rate;
     private List<Table> tables;
     private Table table;
-    private Address address;
-    private Reservation reservation;
 
 
-    public Restaurant(int id, String name, Long phoneNumber, Address address, int maxCapacity, CountryFood countryFood, Menu menu) {
-        this.id = id;
+    public Restaurant(String name, Long phoneNumber, Address address, int maxCapacity, CountryFood countryFood, Menu menu) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -39,7 +79,7 @@ public class Restaurant {
         this.menu = menu;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -71,29 +111,6 @@ public class Restaurant {
         return this.reservation.getNumberOfPeople();
     }
 
-    public int getBill() {
-        return this.menu.getTotalPrice() * this.getReservationNumberOfPeople();
-    }
-
-    public int getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    public Long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public CountryFood getCountryFood() {
-        return countryFood;
-    }
 
 
     private void decrementCapacity() {

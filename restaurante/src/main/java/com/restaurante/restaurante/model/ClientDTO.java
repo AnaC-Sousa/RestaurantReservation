@@ -1,18 +1,23 @@
 package com.restaurante.restaurante.model;
 
+import com.restaurante.restaurante.domain.reservation.Reservation;
+
+import java.util.List;
+
 public class ClientDTO {
 
-    private int id;
+    private Long id;
     private String firstName;
     private String lastName;
     private long phoneNumber;
     private AddressDTO address;
+    private List<Reservation> reservationList;
 
-    public int getId() {
-        return id;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,5 +51,13 @@ public class ClientDTO {
 
     public void setAddress(AddressDTO address) {
         this.address = address;
+    }
+
+    public List<Reservation> getReservationList(){
+        return this.reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList){
+        this.reservationList = reservationList;
     }
 }

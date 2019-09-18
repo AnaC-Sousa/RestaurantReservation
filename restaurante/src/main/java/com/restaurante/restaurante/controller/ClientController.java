@@ -29,7 +29,7 @@ public class ClientController {
     }
 
     @GetMapping(path = "{id}")
-    public ClientDTO getClientById(@PathVariable int id){
+    public ClientDTO getClientById(@PathVariable Long id){
         return modelMapper.map(clientService.getClientById(id), ClientDTO.class);
     }
 
@@ -39,13 +39,13 @@ public class ClientController {
     }
 
     @PutMapping(path = "{id}")
-    public ClientDTO replaceClient(@RequestBody ClientDTO newClient, @PathVariable int id){
+    public ClientDTO replaceClient(@RequestBody ClientDTO newClient, @PathVariable Long id){
         return clientService.replaceClient(newClient, id);
     }
 
 
     @DeleteMapping(path = "{id}")
-    public void deleteClient(@PathVariable int id ){
+    public void deleteClient(@PathVariable Long id ){
         clientService.deleteClient(id);
     }
 

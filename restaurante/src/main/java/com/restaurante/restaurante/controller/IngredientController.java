@@ -1,7 +1,7 @@
 package com.restaurante.restaurante.controller;
 
-import com.restaurante.restaurante.menu.FoodType;
-import com.restaurante.restaurante.menu.Ingredient;
+import com.restaurante.restaurante.domain.menu.FoodType;
+import com.restaurante.restaurante.domain.menu.Ingredient;
 import com.restaurante.restaurante.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +45,7 @@ public class IngredientController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void deleteIngredient(@PathVariable int id){
+    public void deleteIngredient(@PathVariable Long id){
         ingredientService.deleteIngredient(id);
     }
 

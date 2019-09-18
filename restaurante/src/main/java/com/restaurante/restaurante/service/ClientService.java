@@ -1,6 +1,6 @@
 package com.restaurante.restaurante.service;
 
-import com.restaurante.restaurante.address.Address;
+import com.restaurante.restaurante.domain.address.Address;
 import com.restaurante.restaurante.domain.Client;
 import com.restaurante.restaurante.model.ClientDTO;
 import com.restaurante.restaurante.repository.ClientRepository;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -28,7 +27,7 @@ public class ClientService {
     }
 
 
-    public Client getClientById(int id){
+    public Client getClientById(Long id){
         return clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found" + id));
     }
 
@@ -38,7 +37,7 @@ public class ClientService {
     }
 
 
-    public ClientDTO replaceClient(ClientDTO newClient, int id){
+    public ClientDTO replaceClient(ClientDTO newClient, Long id){
         return clientRepository.findById(id)
                 .map(client -> {
                     client.setName(newClient.getFirstName(), newClient.getLastName());
@@ -52,7 +51,7 @@ public class ClientService {
                 });
     }
 
-    public void deleteClient(int id){
+    public void deleteClient(Long id){
         clientRepository.deleteById(id);
     }
 

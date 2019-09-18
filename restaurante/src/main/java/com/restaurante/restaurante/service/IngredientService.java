@@ -1,7 +1,7 @@
 package com.restaurante.restaurante.service;
 
-import com.restaurante.restaurante.menu.FoodType;
-import com.restaurante.restaurante.menu.Ingredient;
+import com.restaurante.restaurante.domain.menu.FoodType;
+import com.restaurante.restaurante.domain.menu.Ingredient;
 import com.restaurante.restaurante.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class IngredientService {
                 });
     }
 
-    public void deleteIngredient(int id){
+    public void deleteIngredient(Long id){
         ingredientRepository.deleteById(id);
     }
 }

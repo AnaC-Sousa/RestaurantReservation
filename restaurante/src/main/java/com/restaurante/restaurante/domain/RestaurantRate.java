@@ -7,6 +7,7 @@ public enum RestaurantRate {
     GOOD(4),
     EXCELLENT(5);
 
+
     int rate;
     RestaurantRate(int rate){
         this.rate = rate;

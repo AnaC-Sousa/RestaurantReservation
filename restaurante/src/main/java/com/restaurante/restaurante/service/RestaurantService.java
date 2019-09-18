@@ -30,7 +30,7 @@ public class RestaurantService {
     }
 
 
-    public Restaurant getRestaurantById(int id){
+    public Restaurant getRestaurantById(Long id){
         return restaurantRepository.findById(id)
                 .orElseThrow(() -> new RestaurantNotFoundException(id));
     }
@@ -75,7 +75,7 @@ public class RestaurantService {
                 });
     }
 
-    public void deleteRestaurant(int id){
+    public void deleteRestaurant(Long id){
         restaurantRepository.deleteById(id);
     }*/
 }
